@@ -53,7 +53,38 @@ describe("GET /users", () => {
           }
         });
     });
-  });
+});
+
+// test/app.test.js
+
+// test/app.test.js
+
+describe('POST /users', () => {
+    it('adds a new user to the list', (done) => {
+        const newUser = {
+            name: 'John Smith',
+            email: 'john@example.com',
+            password: 'john123',
+            phoneNumber: '9876543210'
+        };
+        
+        request(app)
+            .post('/users')
+            .send(newUser)
+            .expect('Content-Type', /json/)
+            .expect(200)
+            // Test the response from the server
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.body.user).to.be.an('object');
+                expect(res.body.user).to.have.property('name', newUser.name);
+                expect(res.body.user).to.have.property('email', newUser.email);
+                done();
+            });
+    });
+});
+
+
 
 //after tests are run
 after((done) => {
